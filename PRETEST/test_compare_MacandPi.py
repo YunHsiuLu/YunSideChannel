@@ -44,9 +44,9 @@ plt.title('pre timing random guess; 1-1 password check')
 plt.xlabel('random guess; 1st for original exec time')
 plt.ylabel('cost time (ns)')
 plt.xticks(np.arange(0, 11, 1))
-#plt.text(6, 5000, ticks) # for pi
-plt.text(6, 1100, ticks) # for mac
+plt.text(6, 5000, ticks) # for pi
+#plt.text(6, 1100, ticks) # for mac
 plt.grid()
-#plt.savefig('pi_results/test_compare.pdf')
-plt.savefig('mac_results/test_compare.pdf')
+plt.savefig('pi_results/test_compare.pdf')
+#plt.savefig('mac_results/test_compare.pdf')
 
