@@ -47,4 +47,4 @@ for pdf in range(4):
 	plt.xticks(np.arange(0, 11, 1))
 	plt.text(6, 5000, ticks)
 	plt.grid()
-	plt.savefig('pi_results/pre_timing_randomguess%d.pdf' % (pdf+1))
+	plt.savefig('mac_results/pre_timing_randomguess%d.pdf' % (pdf+1))
