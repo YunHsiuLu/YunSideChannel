@@ -45,8 +45,8 @@ for pdf in range(4):
 	plt.xlabel('random guess; 1st for original exec time')
 	plt.ylabel('cost time (ns)')
 	plt.xticks(np.arange(0, 11, 1))
-	plt.text(6, 5000, ticks) # for pi
-	#plt.text(6, 1200, ticks) # for mac
+	#plt.text(6, 5000, ticks) # for pi
+	plt.text(6, 1100, ticks) # for mac
 	plt.grid()
-	plt.savefig('pi_results/pre_timing_randomguess%d.pdf' % (pdf+1))
-	#plt.savefig('mac_results/pre_timing_randomguess%d.pdf' % (pdf+1))
+	#plt.savefig('pi_results/pre_timing_randomguess%d.pdf' % (pdf+1))
+	plt.savefig('mac_results/pre_timing_randomguess%d.pdf' % (pdf+1))
