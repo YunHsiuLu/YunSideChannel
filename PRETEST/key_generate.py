@@ -48,8 +48,13 @@ class key_generate():
         return pow(message, self.pub, self.N)
     def decode(self, ciphertext):
         return pow(ciphertext, self.pri, self.N)
-
-
+    def output_file(self, filename):
+        f = open('default_keys/%s.py' % filename, 'w')
+        f.write('N = %d\n' % self.N)
+        f.write('pub = %d\n' % self.pub)
+        f.write('pri = %d\n' % self.pri)
+        f.write('phi = %d\n' % self.phi)
+        f.close()
 
 
 
