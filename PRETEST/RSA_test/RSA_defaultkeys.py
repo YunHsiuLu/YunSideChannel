@@ -29,33 +29,66 @@ for i in range(len(h)):
 	end = time_ns()
 	window_time.append(end-start)
 	#print('window%d execute time: %d ns' % (i,end-start))
-
+'''
 for i in range(len(h)):
 	print('%s (%d):  %d  ns' % (h[i], int(h[i], 2), window_time[i]))
-
+'''
 
 x = np.arange(0, len(h))
-y = np.array(window_time)
-plt.figure(figsize=(15, 6))
-plt.bar(x, y)
-plt.show()
+y1 = np.array(window_time)
 
-
-'''
 # sliding window c2
 
-m = 1111
+window_time = []
+m = 3333
 c = pow(m, KEY512.pub, n)
 M = 1
 
-start = time_ns()
 for i in range(len(h)):
+	start = time_ns()
+
 	M = pow(M, 2**len(h[i]), )
 	if not int(h[i], 2) == 0:
 		M = (M * pow(c, int(h[i], 2))) % n
-end = time_ns()
-print('c2 execute time: %d ns' % (end-start))
-'''
+
+	end = time_ns()
+	window_time.append(end-start)
+	#print('window%d execute time: %d ns' % (i,end-start))
+
+y2 = np.array(window_time)
+
+# sliding window c3
+
+window_time = []
+m = 111111
+c = pow(m, KEY512.pub, n)
+M = 1
+
+for i in range(len(h)):
+	start = time_ns()
+
+	M = pow(M, 2**len(h[i]), )
+	if not int(h[i], 2) == 0:
+		M = (M * pow(c, int(h[i], 2))) % n
+
+	end = time_ns()
+	window_time.append(end-start)
+	#print('window%d execute time: %d ns' % (i,end-start))
+
+y3 = np.array(window_time)
 
 
+plt.figure()
+plt.title('sliding window decode')
+ax1 = plt.subplot(311)
+ax1.set_title('message: 8888888888')
+plt.bar(x, y1)
+ax2 = plt.subplot(312)
+ax2.set_title('message: 3333')
+plt.bar(x, y2)
+ax3 = plt.subplot(313)
+ax3.set_title('message: 111111')
+plt.bar(x, y3)
+plt.tight_layout()
+plt.show()
 
