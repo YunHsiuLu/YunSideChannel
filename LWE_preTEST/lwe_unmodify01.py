@@ -6,12 +6,8 @@ from utility import *
 import getpass
 
 where_run_in = "Run_in_pi_"
-enc_upper_lim = 3820000
-dec_upper_lim = 65000
 if getpass.getuser() == "yulu162":
 	where_run_in = "Run_in_server_"
-	enc_upper_lim = 800000
-	dec_upper_lim = 15000
 
 print("Running in ", getpass.getuser())
 print("Run LWE with same key\n")
@@ -33,7 +29,7 @@ for f in range(8):
 	print("Public key distance: ", mat_dis(pk[0]))
 	print("Public key b:\n", pk[1])
 	print("Public key distance square: ", vec_dis(pk[1]))
-	run = 200
+	run = 500
 	x = np.arange(0, run)
 
 	for _ in range(run+10):
@@ -59,15 +55,10 @@ for f in range(8):
 		end = time_ns()
 		Dec_1_time.append(end - start)
 
-	Enc_0_time = data_improved(Enc_0_time[10:], enc_upper_lim)
-	Dec_0_time = data_improved(Dec_0_time[10:], dec_upper_lim)
-	Enc_1_time = data_improved(Enc_1_time[10:], enc_upper_lim)
-	Dec_1_time = data_improved(Dec_1_time[10:], dec_upper_lim)
-
-	Enc_0_time, Enc_1_time = align_list(Enc_0_time, Enc_1_time)
-	Dec_0_time, Dec_1_time = align_list(Dec_0_time, Dec_1_time)
-	print("\n\tEnc time length: %d, %d" % (len(Enc_0_time), len(Enc_1_time)))
-	print("\tDec time length: %d, %d\n" % (len(Dec_0_time), len(Dec_1_time)))
+	Enc_0_time = Enc_0_time[10:]
+	Dec_0_time = Dec_0_time[10:]
+	Enc_1_time = Enc_1_time[10:]
+	Dec_1_time = Dec_1_time[10:]
 
 	Enc_0_time_ave = sum(Enc_0_time)/len(Enc_0_time)
 	Dec_0_time_ave = sum(Dec_0_time)/len(Dec_0_time)
@@ -80,8 +71,6 @@ for f in range(8):
 	Dec_0_time = np.array(Dec_0_time)
 	Enc_1_time = np.array(Enc_1_time)
 	Dec_1_time = np.array(Dec_1_time)
-	Enc_len = len(Enc_0_time) # same as Enc_1_time
-	Dec_len = len(Dec_0_time) # same as Dec_1_time
 
 	fig, ax = plt.subplots(2,1,figsize=(10,8))
 	fig.suptitle("Run with the same key: Run %d" % (f+1), fontsize=16)
@@ -90,8 +79,9 @@ for f in range(8):
 		"Enc 1's average time: %.2f" % (Enc_1_time_ave)))
 	props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
-	ax[0].plot(x[:Enc_len], Enc_0_time, 'k-')
-	ax[0].plot(x[:Enc_len], Enc_1_time, 'r-')
+	ax[0].plot(x, Enc_0_time, 'k-')
+	ax[0].plot(x, Enc_1_time, 'r-')
+	#ax.set_ylim(25000, 40000)
 	ax[0].legend(["Enc 0's time", "Enc 1's time"], loc='upper right')
 	ax[0].text(0.62, 0.75, textstr1, transform=ax[0].transAxes, fontsize=12, verticalalignment='top', bbox=props)
 
@@ -100,11 +90,12 @@ for f in range(8):
 		"Dec 0's average time: %.2f" % (Dec_0_time_ave),
 		"Dec 1's average time: %.2f" % (Dec_1_time_ave)))
 
-	ax[1].plot(x[:Dec_len], Dec_0_time, 'k-')
-	ax[1].plot(x[:Dec_len], Dec_1_time, 'r-')
+	ax[1].plot(x, Dec_0_time, 'k-')
+	ax[1].plot(x, Dec_1_time, 'r-')
+	#ax[1].set_ylim(3000, 5000)
 	ax[1].legend(["Dec 0's time", "Dec 1's time"], loc='upper right')
 	ax[1].text(0.62, 0.75, textstr2, transform=ax[1].transAxes, fontsize=12, verticalalignment='top', bbox=props)
 	#plt.show()
-	savefig_path = where_run_in + "Improved_data/Run_SameKey_fig%d" % (f+1)
+	savefig_path = where_run_in + "Unmodify_data/Run_SameKey_fig%d" % (f+1)
 	fig.savefig(savefig_path)
 
